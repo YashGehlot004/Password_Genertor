@@ -11,7 +11,7 @@ export function App() {
     let [lowercheck,setLowercheck] = useState(false);
     let [numbercheck,setNumbercheck] = useState(false);
     let [symbols,setsymbols] = useState(false);
-    let [paslength,setPaslength] = useState(5)
+    let [paslength,setPaslength] = useState(6)
     let [passwd,setpasswd] = useState('')
     let [passstrength,setPassstrength]=useState() 
 
@@ -37,24 +37,15 @@ export function App() {
         PasswordData = PasswordData+Symbols
       }
       if(paslength <6){
-        toast.error('Very sort ')
+        toast.error('plese set Lenght to 6 ')
         PassCreate(PasswordData)
       }
       if(paslength >=6){
-        setPassstrength(' Very Good Password')
-        PassCreate(PasswordData)
-        toast.success('password generate successfully ')
-      }
-      if(paslength >=7){
         setPassstrength('Strong Password')
         PassCreate(PasswordData)
         toast.success('password generate successfully ')
       }
-      if(paslength >=7){
-        setPassstrength('Very Strong Password')
-        PassCreate(PasswordData)
-        toast.success('password generate successfully ')
-      }
+     
      
 
     
