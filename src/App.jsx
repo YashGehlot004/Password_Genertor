@@ -11,11 +11,14 @@ export function App() {
     let [lowercheck,setLowercheck] = useState(false);
     let [numbercheck,setNumbercheck] = useState(false);
     let [symbols,setsymbols] = useState(false);
-    let [paslength,setPaslength] = useState('')
+    let [paslength,setPaslength] = useState(5)
     let [passwd,setpasswd] = useState('')
+    let [passstrength,setPassstrength]=useState() 
+
+   
     
   let checkData=()=>{
-     if(uppercheck===false && lowercheck===false && numbercheck===false && symbols===false){
+     if(uppercheck===false && lowercheck===false && numbercheck===false && symbols===false ){
         toast.error('Please Checked ')
      }
      else{
@@ -33,21 +36,45 @@ export function App() {
       if(symbols){
         PasswordData = PasswordData+Symbols
       }
-      PassCreate(PasswordData)
+      if(paslength <6){
+        toast.error('Very sort ')
+        PassCreate(PasswordData)
+      }
+      if(paslength >=6){
+        setPassstrength(' Very Good Password')
+        PassCreate(PasswordData)
+        toast.success('password generate successfully ')
+      }
+      if(paslength >=7){
+        setPassstrength('Strong Password')
+        PassCreate(PasswordData)
+        toast.success('password generate successfully ')
+      }
+      if(paslength >=7){
+        setPassstrength('Very Strong Password')
+        PassCreate(PasswordData)
+        toast.success('password generate successfully ')
+      }
      
-     }
 
+    
+      
+     
+     } 
+    
      }
      
-     let PassCreate=(passdata)=>{
-      let PassLengtn = passdata.length
-      let finalPass = ''
-      for(let i=0; i<paslength; i++){
+    let PassCreate=(passdata)=>{
+    let PassLengtn = passdata.length
+   
+    let finalPass = ''
+         for(let i=0; i<paslength; i++){
         let RandomInd = Math.round(Math.random()*PassLengtn)
         finalPass = finalPass+passdata.charAt(RandomInd)
         setpasswd(finalPass)
+        
       } 
-   
+
   }
 
 
@@ -65,7 +92,7 @@ export function App() {
         <h2 className="text-center py-2 text-red-800 font-semibold text-[25px]">Password Generator</h2>
         <div className="flex justify-between number">
           <span className="text-center py-2 text-red-800 font-semibold"> Password Length</span>
-          <input value={paslength} onChange={(e)=>setPaslength(e.target.value)} className=" text-center text-red-800 font-semibold  border-red-800  border-2  max-w-[50px]" type="number" />
+          <input value={paslength} onChange={(e)=>setPaslength(e.target.value )} className=" text-center text-red-800 font-semibold  border-red-800  border-2  max-w-[50px]" type="number" />
         </div>
         <div className="flex justify-between">
 
@@ -93,7 +120,9 @@ export function App() {
         </div>
         <div className="py-2 ">
           <div className="field relative">
+          
             <input  value={passwd} className=" w-[100%] border-2 px-3 text-[20px] py-2 text-red-800 font-semibold  border-red-800" type="text" placeholder="Password" />
+            <span className="text-red-800  font-semibold "> {passstrength}</span>
             <svg onClick={getValue} className="icon absolute top-3 text-yellow-300 right-2" viewBox="0 0 384 512" width="12" title="clipboard">
               <path d="M384 112v352c0 26.51-21.49 48-48 48H48c-26.51 0-48-21.49-48-48V112c0-26.51 21.49-48 48-48h80c0-35.29 28.71-64 64-64s64 28.71 64 64h80c26.51 0 48 21.49 48 48zM192 40c-13.255 0-24 10.745-24 24s10.745 24 24 24 24-10.745 24-24-10.745-24-24-24m96 114v-20a6 6 0 0 0-6-6H102a6 6 0 0 0-6 6v20a6 6 0 0 0 6 6h180a6 6 0 0 0 6-6z" />
             </svg>
@@ -104,7 +133,7 @@ export function App() {
           </div>
         </div>
       </div>
-      <ToastContainer position="top-center" />
+      <ToastContainer  position="top-center" autoClose={800} />
     </div>
   );
 }
